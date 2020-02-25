@@ -2,40 +2,54 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CheckBox</title>
 </head>
 
 <body>
     <form action="">
-        <input type="text" type="text" name='feist_field'><br>
+        <input type="text" name="fierst_field" /><br />
         <label for="add">Add bew field</label>
-        <input id='add' type="checkbox" name="check" value="add"><br>
-        <button type="submit">knopka</button>
+        <input id="add" type="checkbox" name="check" value="add" /><br />
+        <button type="submit">PUSH</button>
     </form>
     <script>
-        let chek = document.getElementById('add');
-        chek.addEventListener('change', function () {
+        let form = document.querySelector("form");
+        form.addEventListener("submit", function (element) {
+            let textInput = element.target.querySelectorAll("input");
+            let arrayTextInput = Array.from(textInput);
+            let alertText = arrayTextInput.filter(function (element) {
+                if (
+                    element.type !== !element.name ||
+                    (element.type === "checkbox" && element.checked)
+                ) {
+                    console.log(element);
+                    return element;
+                }
+            });
+            let alertTextNew = alertText.reduce(function (accumulator, element) {
+                return `${accumulator}` + `${element.name} = ${element.value}\n`;
+            },'');
+            alert(alertTextNew);
+        });
+
+        let chek = document.getElementById("add");
+
+        chek.addEventListener("change", function () {
             if (chek.checked) {
-                chek.insertAdjacentHTML('afterEnd', '<div id="new_input"> <lable>text label </lable><input type="text" name="new_input"></div>');
-            }
-            else {
+                chek.insertAdjacentHTML(
+                    "afterEnd",
+                    '<div id="new_input"> <label>text label </label><input type="text" name="new_input"></div>'
+                );
+            } else {
                 let second = document.getElementById("new_input");
                 second.remove(second.selectedIndex);
             }
-            let forma = document.querySelector('form');
-            forma.addEventListener('submit', function (element) {
-                let textInput = element.target.querySelectorAll('input');
-                let arrayTextInput = Array.from(textInput);
-                let alertText = arrayTextInput
-                    .filter(element => element.type !== !element.name || element.type === 'checkbox' && element.checked)
-                    .reduce((newEl, element) => `${newEl}${element.name} = ${element.value}\n`, "")
-                alert(alertText)
-            });
-        }
-        )
+        });
     </script>
 </body>
+
+</html>
 
 </html>
