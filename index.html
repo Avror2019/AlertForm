@@ -40,8 +40,21 @@
             if (chek.checked) {
                 chek.insertAdjacentHTML(
                     "afterEnd",
-                    '<div id="new_input"> <label>text label </label><input type="text" name="new_input"></div>'
+                    '<div id="new_input"> <label>text label </label><input  id="mine" type="text" name="new_input"></div>'
                 );
+                 if (document.getElementById("mine")) {
+                    let element = document.getElementById("mine");
+
+                    if (localStorage.getItem(`element`)) {
+                        element.value = localStorage.getItem(`element`);
+                    }
+
+                    element.oninput = function () {
+                        localStorage.setItem(`element`, element.value);
+                    };
+                }                
+                
+                
             } else {
                 let second = document.getElementById("new_input");
                 second.remove(second.selectedIndex);
